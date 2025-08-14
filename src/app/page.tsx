@@ -2,7 +2,8 @@
 
 'use client';
 import React from "react";
-import { FaChevronDown, FaPlay, FaPause, FaCalendarAlt, FaMapMarkerAlt, FaImages, FaHeart, FaFacebookF, FaTelegramPlane, FaInstagram, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronDown, FaPlay, FaPause, FaCalendarAlt,FaGlobe, FaMapMarkerAlt, FaImages, FaHeart, FaFacebookF, FaTelegramPlane, FaInstagram, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaEnvelopeCircleCheck } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
 import { supabase } from "@/lib/supabase";
 
@@ -20,6 +21,7 @@ export default function Home() {
   const [locationButtonVisible, setLocationButtonVisible] = React.useState(false);
   const [galleryVisible, setGalleryVisible] = React.useState(false);
   const [wishesVisible, setWishesVisible] = React.useState(false);
+  const [loveMessageVisible, setLoveMessageVisible] = React.useState(false);
   
   // Track which elements have already been animated (never reset to false)
   const [khmerTextAnimated, setKhmerTextAnimated] = React.useState(false);
@@ -32,6 +34,7 @@ export default function Home() {
   const [locationButtonAnimated, setLocationButtonAnimated] = React.useState(false);
   const [galleryAnimated, setGalleryAnimated] = React.useState(false);
   const [wishesAnimated, setWishesAnimated] = React.useState(false);
+  const [loveMessageAnimated, setLoveMessageAnimated] = React.useState(false);
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [wishes, setWishes] = React.useState<Array<{id?: number, name: string, message: string, created_at: string}>>([]);
   const [isLoadingWishes, setIsLoadingWishes] = React.useState(false);
@@ -47,14 +50,15 @@ export default function Home() {
   
   const khmerRef = React.useRef<HTMLImageElement>(null);
   const englishRef = React.useRef<HTMLImageElement>(null);
-  const calendarRef = React.useRef<HTMLButtonElement>(null);
+  const calendarRef = React.useRef<HTMLAnchorElement>(null);
   const weddingRef = React.useRef<HTMLImageElement>(null);
   const day1Ref = React.useRef<HTMLImageElement>(null);
   const day2Ref = React.useRef<HTMLImageElement>(null);
   const locationRef = React.useRef<HTMLImageElement>(null);
-  const locationButtonRef = React.useRef<HTMLButtonElement>(null);
+  const locationButtonRef = React.useRef<HTMLAnchorElement>(null);
   const galleryRef = React.useRef<HTMLImageElement>(null);
   const wishesRef = React.useRef<HTMLDivElement>(null);
+  const loveMessageRef = React.useRef<HTMLDivElement>(null);
   const audioRef = React.useRef<HTMLAudioElement>(null);
 
   React.useEffect(() => {
@@ -107,6 +111,9 @@ export default function Home() {
           } else if (entry.target === wishesRef.current && !wishesAnimated) {
             setWishesVisible(true);
             setWishesAnimated(true);
+          } else if (entry.target === loveMessageRef.current && !loveMessageAnimated) {
+            setLoveMessageVisible(true);
+            setLoveMessageAnimated(true);
           }
         }
       });
@@ -122,9 +129,10 @@ export default function Home() {
     if (locationButtonRef.current) observer.observe(locationButtonRef.current);
     if (galleryRef.current) observer.observe(galleryRef.current);
     if (wishesRef.current) observer.observe(wishesRef.current);
+    if (loveMessageRef.current) observer.observe(loveMessageRef.current);
 
     return () => observer.disconnect();
-  }, [showKhmerText, khmerTextAnimated, englishTextAnimated, calendarButtonAnimated, weddingImageAnimated, day1Animated, day2Animated, locationAnimated, locationButtonAnimated, galleryAnimated, wishesAnimated]);
+  }, [showKhmerText, khmerTextAnimated, englishTextAnimated, calendarButtonAnimated, weddingImageAnimated, day1Animated, day2Animated, locationAnimated, locationButtonAnimated, galleryAnimated, wishesAnimated, loveMessageAnimated]);
 
   // Auto-play music when component mounts (browser open/refresh)
   React.useEffect(() => {
@@ -404,17 +412,15 @@ export default function Home() {
                 }`}
               />
               {/* Calendar button under English text */}
-              <button
+              <a
                 ref={calendarRef}
-                type="button"
+                href="https://calendar.app.google/g5y1ASsxtj5MhScM7"
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`bg-transparent p-0 rounded-full flex items-center justify-center mt-8 transition-all duration-600 delay-500 ${
                   calendarButtonVisible ? 'opacity-100 animate-popup transform translate-y-0' : 'opacity-0 transform translate-y-12'
                 }`}
                 style={{ boxShadow: 'none' }}
-                onClick={() => {
-                  // Add calendar functionality here
-                  console.log('Calendar button clicked');
-                }}
               >
                 <img
                   src="/images/accept_calendar.png"
@@ -422,8 +428,7 @@ export default function Home() {
                   className="w-72 h-72 sm:w-72 sm:h-72 md:w-60 md:h-60 object-contain"
                   style={{ display: 'block' }}
                 />
-              </button>
-            </section>
+              </a>  </section>
 
             {/* Wedding image section - mobile size on all devices */}
             <section className="min-h-screen w-full flex items-center justify-center">
@@ -491,17 +496,15 @@ export default function Home() {
                 }`}
                 style={{ display: 'block' }}
               />
-              <button
+              <a
                 ref={locationButtonRef}
-                type="button"
+                href="https://maps.app.goo.gl/9bA27g3cLg7H3Yqs6?g_st=ii"
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`bg-transparent p-0 rounded-full flex items-center justify-center transition-all duration-600 delay-500 ${
                   locationButtonVisible ? 'opacity-100 animate-popup transform translate-y-0' : 'opacity-0 transform translate-y-12'
                 }`}
                 style={{ boxShadow: 'none' }}
-                onClick={() => {
-                  // Add location link functionality here
-                  console.log('Location button clicked');
-                }}
               >
                 <img
                   src="/images/location.png"
@@ -509,7 +512,7 @@ export default function Home() {
                   className="w-72 h-72 sm:w-72 sm:h-72 md:w-60 md:h-60 object-contain"
                   style={{ display: 'block' }}
                 />
-              </button>
+              </a>
             </section>
 
             {/* Gallery section */}
@@ -685,6 +688,42 @@ export default function Home() {
               </div>
             </section>
 
+            {/* Love Message Section */}
+            <section className="min-h-screen w-full flex flex-col items-center justify-center px-4">
+              <div ref={loveMessageRef} className="w-full max-w-2xl text-center">
+                <div className={`transition-all duration-1000 ease-out ${
+                  loveMessageVisible 
+                    ? 'opacity-100 transform translate-y-0' 
+                    : 'opacity-0 transform translate-y-12'
+                }`}>
+                  <div className="bg-none bg-opacity-10 backdrop-blur-sm rounded-2xl p-8 border border-pink-400/30 shadow-xl">
+                    <div className="mb-6">
+                      <div className="text-6xl mb-4">💕</div>
+                      <h2 className="text-3xl font-bold text-pink-300 mb-6 font-[family-name:var(--font-merriweather)]">
+                        From Our Hearts
+                      </h2>
+                    </div>
+                    
+                    <p className="text-xl leading-relaxed text-pink-300 mb-8 font-[family-name:var(--font-merriweather)]">
+                      &ldquo;Sending a lot of love from both the groom and bride! 
+                      <br />
+                      Can&rsquo;t wait to celebrate our special day with you!&rdquo;
+                    </p>
+                    
+                    <div className="flex justify-center items-center space-x-4 text-pink-200">
+                      <div className="w-12 h-0.5 bg-pink-400 opacity-50"></div>
+                      <div className="w-12 h-0.5 bg-pink-400 opacity-50"></div>
+                    </div>
+                    
+                    <div className="mt-6 text-pink-300 font-[family-name:var(--font-merriweather)]">
+                      <p className="text-lg font-semibold">With all our love,</p>
+                      <p className="text-base opacity-80">The Happy Couple</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
             {/* Credit Section - No Animation */}
             <section className="min-h-screen w-full flex flex-col items-center justify-center px-4 bg-transparent">
               <div className="w-full max-w-sm text-center space-y-6">
@@ -693,7 +732,7 @@ export default function Home() {
                 {/* Social Media Icons */}
                 <div className="flex justify-center space-x-8 mb-6">
                   <a 
-                    href="https://facebook.com" 
+                    href="https://www.facebook.com/linhcheu.meng/" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="bg-pink-500/20 backdrop-blur-sm hover:bg-pink-500/30 border border-pink-400/30 rounded-full p-4 transition-all duration-300 hover:scale-110"
@@ -702,7 +741,7 @@ export default function Home() {
                   </a>
                   
                   <a 
-                    href="https://telegram.org" 
+                    href="https://t.me/lingcheuu" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="bg-pink-500/20 backdrop-blur-sm hover:bg-pink-500/30 border border-pink-400/30 rounded-full p-4 transition-all duration-300 hover:scale-110"
@@ -711,12 +750,20 @@ export default function Home() {
                   </a>
                   
                   <a 
-                    href="https://instagram.com" 
+                    href="https://www.instagram.com/lingcheuu/" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="bg-pink-500/20 backdrop-blur-sm hover:bg-pink-500/30 border border-pink-400/30 rounded-full p-4 transition-all duration-300 hover:scale-110"
                   >
                     <FaInstagram className="w-6 h-6 text-pink-300" />
+                  </a>
+                  <a
+                    href="https://linhcheu-portfolio.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-pink-500/20 backdrop-blur-sm hover:bg-pink-500/30 border border-pink-400/30 rounded-full p-4 transition-all duration-300 hover:scale-110"
+                  >
+                    <FaGlobe className="w-6 h-6 text-pink-300" />
                   </a>
                 </div>
                 
@@ -727,7 +774,7 @@ export default function Home() {
                     href="tel:0965942596" 
                     className="text-pink-300 hover:text-pink-200 font-semibold transition-colors duration-300"
                   >
-                    0965942596
+                    096 59 42 596 / 012 200 967
                   </a>
                 </div>
                 
@@ -853,7 +900,7 @@ export default function Home() {
 
       {/* Bottom Navigation Bar */}
       {showKhmerText && (
-        <nav className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-white bg-opacity-20 backdrop-blur-md rounded-full px-6 py-3 shadow-lg z-40">
+        <nav className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-none bg-opacity-0 backdrop-blur-md rounded-full px-6 py-3 shadow-lg z-40">
           <div className="flex items-center space-x-6">
             <button
               onClick={() => scrollToSection(khmerRef)}
@@ -885,6 +932,14 @@ export default function Home() {
             >
               <FaHeart className="w-6 h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
               <span className="text-xs text-pink-300 group-hover:text-pink-200 transition-colors">Wishes</span>
+            </button>
+            
+            <button
+              onClick={() => scrollToSection(loveMessageRef)}
+              className="flex flex-col items-center space-y-1 p-2 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group"
+            >
+              <FaEnvelopeCircleCheck className="w-6 h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
+              <span className="text-xs text-pink-300 group-hover:text-pink-200 transition-colors">Message</span>
             </button>
           </div>
         </nav>
