@@ -695,16 +695,16 @@ export default function Home() {
                   loveMessageVisible 
                     ? 'opacity-100 transform translate-y-0' 
                     : 'opacity-0 transform translate-y-12'
-                }`}>
-                  <div className="bg-none bg-opacity-10 backdrop-blur-sm rounded-2xl p-8 border border-pink-400/30 shadow-xl">
-                    <div className="mb-6">
+                } flex justify-center items-center w-full`}>
+                  <div className="bg-none bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 border border-pink-400/30 shadow-xl w-full max-w-sm mx-auto">
+                    <div className="mb-6 text-center">
                       <div className="text-6xl mb-4">💕</div>
                       <h2 className="text-3xl font-bold text-pink-300 mb-6 font-[family-name:var(--font-merriweather)]">
                         From Our Hearts
                       </h2>
                     </div>
                     
-                    <p className="text-xl leading-relaxed text-pink-300 mb-8 font-[family-name:var(--font-merriweather)]">
+                    <p className="text-xl leading-relaxed text-pink-300 mb-8 font-[family-name:var(--font-merriweather)] text-center">
                       &ldquo;Sending a lot of love from both the groom and bride! 
                       <br />
                       Can&rsquo;t wait to celebrate our special day with you!&rdquo;
@@ -715,22 +715,21 @@ export default function Home() {
                       <div className="w-12 h-0.5 bg-pink-400 opacity-50"></div>
                     </div>
                     
-                    <div className="mt-6 text-pink-300 font-[family-name:var(--font-merriweather)]">
+                    <div className="mt-6 text-pink-300 font-[family-name:var(--font-merriweather)] text-center">
                       <p className="text-lg font-semibold">With all our love,</p>
                       <p className="text-base opacity-80">The Happy Couple</p>
                     </div>
                   </div>
-                </div>
-              </div>
+                </div>  </div>
             </section>
 
             {/* Credit Section - No Animation */}
             <section className="min-h-screen w-full flex flex-col items-center justify-center px-4 bg-transparent">
               <div className="w-full max-w-sm text-center space-y-6">
-                <h2 className="text-2xl font-bold mb-8 text-pink-400">Built by: Linhcheu Meng</h2>
-                
+                <h2 className="text-l font-[family-name:var(--font-merriweather)] mb-8 text-pink-300">E-Invitation by: <a href="https://linhcheu-portfolio.vercel.app/" className="text-pink-100 underline hover:text-pink-300 transition-colors duration-200">Linhcheu Meng</a></h2>
+
                 {/* Social Media Icons */}
-                <div className="flex justify-center space-x-8 mb-6">
+                <div className="flex justify-center space-x-2 mb-3">
                   <a 
                     href="https://www.facebook.com/linhcheu.meng/" 
                     target="_blank" 
