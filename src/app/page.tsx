@@ -828,7 +828,7 @@ export default function Home() {
                   <img
                     src="/images/hero_pic3.png"
                     alt="Wedding Hero"
-                    className={`w-120 h-172 -mt-32 mx-auto sm:w-160 sm:h-80 md:w-[48rem] md:h-[36rem] object-contain mb-8 md:mb-6 lg:w-[48rem] lg:h-[48rem] lg:mb-4${animateRise ? ' animate-rise' : ''}`}
+                    className={`w-200 h-200 -mt-32 mx-auto sm:w-160 sm:h-200 md:w-[48rem] md:h-[72rem] object-contain mb-8 md:mb-6 lg:w-[48rem] lg:h-[48rem] lg:mb-4${animateRise ? ' animate-rise' : ''}`}
                   />
                   <button
                     type="button"
@@ -842,7 +842,7 @@ export default function Home() {
                     <img
                       src="/images/accept_pic.png"
                       alt="RSVP"
-                      className={`w-72 h-72 sm:w-72 sm:h-72 md:w-60 md:h-60 object-contain${animateRise ? ' animate-rise' : ''}`}
+                      className={`w-80 h-132 sm:w-72 sm:h-72 md:w-60 md:h-60 object-contain${animateRise ? ' animate-rise' : ''}`}
                       style={{ display: 'block' }}
                     />
                   </button>
@@ -897,13 +897,12 @@ export default function Home() {
         </div>
       )}
 
-      {/* Bottom Navigation Bar */}
-      {showKhmerText && (
-        <nav className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-none bg-opacity-0 backdrop-blur-md rounded-full px-6 py-3 shadow-lg z-40">
-          <div className="flex items-center space-x-6">
+      /* Bottom Navigation Bar */
+        {showKhmerText && (
+          <nav className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-none bg-opacity-0 backdrop-blur-md rounded-xl px-2 py-2 shadow-lg z-40">  <div className="flex items-center space-x-6">
             <button
               onClick={() => scrollToSection(khmerRef)}
-              className="flex flex-col items-center space-y-1 p-2 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group"
+              className="flex flex-col items-center space-y-1 p-1 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group"
             >
               <FaCalendarAlt className="w-6 h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
               <span className="text-xs text-pink-300 group-hover:text-pink-200 transition-colors">Calendar</span>
@@ -911,7 +910,7 @@ export default function Home() {
             
             <button
               onClick={() => scrollToSection(locationRef)}
-              className="flex flex-col items-center space-y-1 p-2 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group"
+              className="flex flex-col items-center space-y-1 p-1 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group"
             >
               <FaMapMarkerAlt className="w-6 h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
               <span className="text-xs text-pink-300 group-hover:text-pink-200 transition-colors">Location</span>
@@ -919,7 +918,7 @@ export default function Home() {
             
             <button
               onClick={() => scrollToSection(galleryRef)}
-              className="flex flex-col items-center space-y-1 p-2 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group"
+              className="flex flex-col items-center space-y-1 p-1 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group"
             >
               <FaImages className="w-6 h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
               <span className="text-xs text-pink-300 group-hover:text-pink-200 transition-colors">Gallery</span>
@@ -927,7 +926,7 @@ export default function Home() {
             
             <button
               onClick={() => scrollToSection(wishesRef)}
-              className="flex flex-col items-center space-y-1 p-2 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group"
+              className="flex flex-col items-center space-y-1 p-1 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group"
             >
               <FaHeart className="w-6 h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
               <span className="text-xs text-pink-300 group-hover:text-pink-200 transition-colors">Wishes</span>
@@ -935,7 +934,7 @@ export default function Home() {
             
             <button
               onClick={() => scrollToSection(loveMessageRef)}
-              className="flex flex-col items-center space-y-1 p-2 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group"
+              className="flex flex-col items-center space-y-1 p-1 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group"
             >
               <FaEnvelopeCircleCheck className="w-6 h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
               <span className="text-xs text-pink-300 group-hover:text-pink-200 transition-colors">Message</span>
