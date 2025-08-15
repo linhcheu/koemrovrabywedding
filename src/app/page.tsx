@@ -897,7 +897,7 @@ export default function Home() {
         </div>
       )}
 
-      /* Bottom Navigation Bar */
+  {/* Bottom Navigation Bar */}
         {showKhmerText && (
           <nav className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-none bg-opacity-0 backdrop-blur-md rounded-xl px-2 py-2 shadow-lg z-40">  <div className="flex items-center space-x-6">
             <button
