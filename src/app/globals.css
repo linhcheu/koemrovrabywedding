@@ -95,3 +95,23 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.5);
 }
+
+/* Pink scrollbar for wishes section */
+.scrollbar-pink::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-pink::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-pink::-webkit-scrollbar-thumb {
+  background: rgba(244, 114, 182, 0.6);
+  border-radius: 3px;
+}
+
+.scrollbar-pink::-webkit-scrollbar-thumb:hover {
+  background: rgba(244, 114, 182, 0.8);
+}
+
+

@@ -1,9 +1,7 @@
-
-
 'use client';
 import React from "react";
 import Image from "next/image";
-import { FaChevronDown, FaPlay, FaPause, FaCalendarAlt,FaGlobe, FaMapMarkerAlt, FaImages, FaHeart, FaFacebookF, FaTelegramPlane, FaInstagram, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronDown, FaPlay,FaSmile, FaPause, FaCalendarAlt, FaGlobe, FaMapMarkerAlt, FaImages, FaHeart, FaFacebookF, FaTelegramPlane, FaInstagram, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { FaEnvelopeCircleCheck } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
 import { supabase } from "@/lib/supabase";
@@ -48,6 +46,8 @@ export default function Home() {
   ]);
   const [selectedImage, setSelectedImage] = React.useState<number | null>(null);
   const [imageTransition, setImageTransition] = React.useState(false);
+  const [touchStart, setTouchStart] = React.useState(0);
+  const [touchEnd, setTouchEnd] = React.useState(0);
   
   const khmerRef = React.useRef<HTMLImageElement>(null);
   const englishRef = React.useRef<HTMLImageElement>(null);
@@ -283,6 +283,32 @@ export default function Home() {
     }, 150);
   };
 
+  // Touch gesture handlers for gallery
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(0); // Clear the touchEnd value
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (selectedImage !== null) {
+      if (isLeftSwipe) {
+        nextImage();
+      } else if (isRightSwipe) {
+        prevImage();
+      }
+    }
+  };
+
   // Keyboard navigation for gallery
   React.useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -349,6 +375,7 @@ export default function Home() {
                 loop
                 muted
                 playsInline
+                preload="metadata"
               />
             </div>
             <div className="bg-black absolute inset-0 w-full h-full md:hidden">
@@ -359,6 +386,7 @@ export default function Home() {
                 loop
                 muted
                 playsInline
+                preload="metadata"
               />
             </div>
             {/* Frame overlay on top of video but behind text */}
@@ -648,7 +676,7 @@ export default function Home() {
                     required
                     value={formData.name}
                     onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                    className="w-full p-3 rounded-lg bg-white text-black placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent"
+                    className="w-full p-3 rounded-lg bg-white/90 backdrop-blur-sm text-black placeholder-gray-600 border border-pink-300/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-pink-400 transition-all duration-300 font-[family-name:var(--font-merriweather)] shadow-lg"
                   />
                   <textarea
                     name="message"
@@ -657,12 +685,12 @@ export default function Home() {
                     rows={4}
                     value={formData.message}
                     onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
-                    className="w-full p-3 rounded-lg bg-white text-black placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent resize-none"
+                    className="w-full p-3 rounded-lg bg-white/90 backdrop-blur-sm text-black placeholder-gray-600 border border-pink-300/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-pink-400 resize-none transition-all duration-300 font-[family-name:var(--font-merriweather)] shadow-lg"
                   ></textarea>
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`w-full p-3 rounded-lg text-white font-semibold transition-all duration-300 transform hover:scale-105 ${
+                    className={`w-full p-3 rounded-lg text-white font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg font-[family-name:var(--font-merriweather)] ${
                       isSubmitting 
                         ? 'bg-gray-400 cursor-not-allowed' 
                         : 'bg-gradient-to-r from-pink-400 to-rose-400 hover:from-pink-500 hover:to-rose-500'
@@ -672,40 +700,44 @@ export default function Home() {
                   </button>
                 </form>
                 
-                {/* Display wishes */}
-                <div className={`space-y-4 transition-all duration-600 delay-500 ease-out ${
+                {/* Display wishes - with scrollable container */}
+                <div className={`transition-all duration-600 delay-500 ease-out border border-pink-300/100 rounded-xl shadow-lg ${
                   wishesVisible 
-                    ? 'opacity-100 transform translate-y-0' 
-                    : 'opacity-0 transform translate-y-12'
+                  ? 'opacity-100 transform translate-y-0' 
+                  : 'opacity-0 transform translate-y-12'
                 }`}>
-                  {isLoadingWishes ? (
-                    <div className="text-center text-white opacity-60 py-8">
-                      <p>Loading wishes... ✨</p>
-                    </div>
-                  ) : wishes.length === 0 ? (
-                    <div className="text-center text-white opacity-60 py-8">
-                      <p>Be the first to share your wishes! ✨</p>
-                    </div>
-                  ) : (
-                    wishes.map((wish, index) => (
-                      <div key={wish.id || index} className="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-4 border border-white border-opacity-30">
-                        <div className="flex items-center justify-between mb-2">
-                          <h4 className="text-pink-200 font-semibold">😊 {wish.name}</h4>
-                          <span className="text-gray-300 text-sm">
-                            {new Date(wish.created_at).toLocaleDateString('en-US', { 
-                              year: 'numeric', 
-                              month: '2-digit', 
-                              day: '2-digit' 
-                            })} | {new Date(wish.created_at).toLocaleTimeString('en-US', { 
-                              hour: '2-digit', 
-                              minute: '2-digit' 
-                            })}
-                          </span>
-                        </div>
-                        <p className="text-black">{wish.message}</p>
+                  <div className="max-h-96 overflow-y-auto space-y-4 scrollbar-pink- pr-2 p-4">
+                    {isLoadingWishes ? (
+                      <div className="text-center text-white opacity-60 py-8">
+                        <p className="font-[family-name:var(--font-merriweather)]">Loading wishes... ✨</p>
                       </div>
-                    ))
-                  )}
+                    ) : wishes.length === 0 ? (
+                      <div className="text-center text-white opacity-60 py-8">
+                        <p className="font-[family-name:var(--font-merriweather)]">Be the first to share your wishes! ✨</p>
+                      </div>
+                    ) : (
+                      wishes.map((wish, index) => (
+                        <div key={wish.id || index} className="bg-pink/50 backdrop-blur-sm rounded-xl p-4 border border-pink-300/30 shadow-lg hover:bg-white/25 transition-all duration-300">
+                          <div className="flex items-center justify-between mb-3">
+                            <h4 className="text-pink-300 font-semibold font-[family-name:var(--font-merriweather)] text-xs flex items-center gap-2">
+                              <FaHeart /> <FaSmile /> {wish.name}
+                            </h4>
+                            <span className="text-pink-300/80 text-xs font-[family-name:var(--font-merriweather)]">
+                              {new Date(wish.created_at).toLocaleDateString('en-US', { 
+                                year: 'numeric', 
+                                month: '2-digit', 
+                                day: '2-digit' 
+                              })} | {new Date(wish.created_at).toLocaleTimeString('en-US', { 
+                                hour: '2-digit', 
+                                minute: '2-digit' 
+                              })}
+                            </span>
+                          </div>
+                          <p className="text-white text-sm leading-relaxed font-[family-name:var(--font-merriweather)]">{wish.message}</p>
+                        </div>
+                      ))
+                    )}
+                  </div>
                 </div>
               </div>
             </section>
@@ -827,6 +859,7 @@ export default function Home() {
                 autoPlay
                 muted
                 playsInline
+                preload="metadata"
                 style={{ height: '100%', maxHeight: '100vh' }}
                 loop={!showRsvpVideo}
                 onEnded={handleRsvpVideoEnd}
@@ -838,6 +871,7 @@ export default function Home() {
               autoPlay
               muted
               playsInline
+              preload="metadata"
               loop={!showRsvpVideo}
               onEnded={handleRsvpVideoEnd}
             />
@@ -883,21 +917,27 @@ export default function Home() {
       {/* Gallery Modal */}
       {selectedImage !== null && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-lg flex items-center justify-center z-50 animate-fadeIn">
-          <div className="relative max-w-4xl max-h-full p-4">
+          <div 
+            className="relative max-w-4xl max-h-full p-4"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             <Image
               src={galleryImages[selectedImage]}
               alt={`Gallery ${selectedImage + 1}`}
               width={1200}
               height={800}
-              className={`max-w-full max-h-[85vh] object-contain rounded-lg transition-all duration-300 ease-in-out ${
+              className={`max-w-full max-h-[85vh] object-contain rounded-lg transition-all duration-300 ease-in-out select-none ${
                 imageTransition ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
               }`}
+              draggable={false}
             />
             
             {/* Close button - minimalist */}
             <button
               onClick={closeGallery}
-              className="absolute -top-2 -right-2 text-white hover:text-red-400 transition-colors duration-200 p-2"
+              className="absolute -top-2 -right-2 text-white hover:text-red-400 transition-colors duration-200 p-2 z-10"
             >
               <IoClose className="w-8 h-8" />
             </button>
@@ -905,7 +945,7 @@ export default function Home() {
             {/* Previous button - minimalist */}
             <button
               onClick={prevImage}
-              className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white hover:text-pink-400 transition-all duration-200 p-3 hover:scale-110"
+              className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white hover:text-pink-400 transition-all duration-200 p-3 hover:scale-110 z-10 bg-black/30 rounded-full"
             >
               <FaChevronLeft className="w-6 h-6" />
             </button>
@@ -913,7 +953,7 @@ export default function Home() {
             {/* Next button - minimalist */}
             <button
               onClick={nextImage}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white hover:text-pink-400 transition-all duration-200 p-3 hover:scale-110"
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white hover:text-pink-400 transition-all duration-200 p-3 hover:scale-110 z-10 bg-black/30 rounded-full"
             >
               <FaChevronRight className="w-6 h-6" />
             </button>
@@ -921,6 +961,11 @@ export default function Home() {
             {/* Image counter */}
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/50 rounded-full px-3 py-1 text-white text-sm">
               {selectedImage + 1} / {galleryImages.length}
+            </div>
+
+            {/* Touch instruction hint (shows briefly) */}
+            <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 text-white/70 text-xs animate-pulse">
+              👆 Swipe left/right to navigate
             </div>
           </div>
         </div>
