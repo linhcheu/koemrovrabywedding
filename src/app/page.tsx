@@ -40,9 +40,11 @@ export default function Home() {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [formData, setFormData] = React.useState({ name: '', message: '' });
   const [galleryImages] = React.useState([
-    '/images/wedding1.jpg', '/images/wedding9.jpg', '/images/wedding9.jpg',
-    '/images/wedding9.jpg', '/images/wedding10.jpg', '/images/wedding9.jpg',
-    '/images/wedding9.jpg', '/images/wedding10.jpg', '/images/wedding11.jpg'
+    '/images/wedding1.jpg', '/images/wedding10.jpg', '/images/wedding10.jpg',
+    '/images/wedding10.jpg', '/images/wedding10.jpg', '/images/wedding10.jpg',
+    '/images/wedding10.jpg', '/images/wedding10.jpg', '/images/wedding11.jpg',
+    '/images/wedding12.jpg', '/images/wedding12.jpg', '/images/wedding12.jpg',
+    '/images/wedding11.jpg', '/images/wedding11.jpg', '/images/wedding11.jpg'
   ]);
   const [selectedImage, setSelectedImage] = React.useState<number | null>(null);
   const [imageTransition, setImageTransition] = React.useState(false);
@@ -585,7 +587,7 @@ export default function Home() {
                     onClick={() => openGallery(0)}
                   />
                 </div>
-                
+
                 {/* 3 images row */}
                 <div className="flex space-x-2">
                   {[1, 2, 3].map(i => (
@@ -601,8 +603,8 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-                
-                {/* Single image */}
+
+                {/* Single image row (new) */}
                 <div className="w-full h-40 rounded-lg overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300 shadow-lg">
                   <Image
                     src={galleryImages[4]}
@@ -613,10 +615,26 @@ export default function Home() {
                     onClick={() => openGallery(4)}
                   />
                 </div>
-                
+
+                {/* 3 images row (new) */}
+                <div className="flex space-x-2">
+                  {[5, 6, 7].map(i => (
+                    <div key={i} className="flex-1 h-32 rounded-lg overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300 shadow-lg">
+                      <Image
+                        src={galleryImages[i]}
+                        alt={`Gallery ${i + 1}`}
+                        width={150}
+                        height={128}
+                        className="w-full h-full object-cover hover:opacity-90 transition-opacity duration-300"
+                        onClick={() => openGallery(i)}
+                      />
+                    </div>
+                  ))}
+                </div>
+
                 {/* 2 vertical images */}
                 <div className="flex space-x-2">
-                  {[5, 6].map(i => (
+                  {[8, 9].map(i => (
                     <div key={i} className="flex-1 h-56 rounded-lg overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300 shadow-lg">
                       <Image
                         src={galleryImages[i]}
@@ -629,10 +647,10 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-                
+
                 {/* 4 images grid */}
                 <div className="grid grid-cols-2 gap-2">
-                  {[7, 8, 0, 1].map((i, index) => (
+                  {[10, 11, 12, 13].map((i, index) => (
                     <div key={index} className="h-32 rounded-lg overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300 shadow-lg">
                       <Image
                         src={galleryImages[i]}
@@ -644,6 +662,18 @@ export default function Home() {
                       />
                     </div>
                   ))}
+                </div>
+
+                {/* Last image row (single image) */}
+                <div className="w-full h-40 rounded-lg overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300 shadow-lg">
+                  <Image
+                    src={galleryImages[14]}
+                    alt="Gallery 15"
+                    width={400}
+                    height={160}
+                    className="w-full h-full object-cover hover:opacity-90 transition-opacity duration-300"
+                    onClick={() => openGallery(14)}
+                  />
                 </div>
               </div>
             </section>
