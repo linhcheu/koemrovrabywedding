@@ -2,6 +2,7 @@
 
 'use client';
 import React from "react";
+import Image from "next/image";
 import { FaChevronDown, FaPlay, FaPause, FaCalendarAlt,FaGlobe, FaMapMarkerAlt, FaImages, FaHeart, FaFacebookF, FaTelegramPlane, FaInstagram, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { FaEnvelopeCircleCheck } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
@@ -382,15 +383,18 @@ export default function Home() {
           {/* Scrollable sections */}
           <div className="relative z-20">
             <section className="min-h-screen flex flex-col items-center justify-center text-white">
-              <img
+              <Image
                 ref={khmerRef}
                 src="/images/khmer_text.png"
                 alt="Khmer Text"
+                width={512}
+                height={300}
                 className={`w-[32rem] h-auto mx-auto transition-all duration-600 ease-out ${
                   khmerTextVisible 
                     ? 'opacity-100 transform translate-y-0' 
                     : 'opacity-0 transform translate-y-12'
                 }`}
+                priority
               />
               {/* Arrow under Khmer text */}
               <div className={`mt-8 animate-bounce transition-all duration-600 delay-500 ${
@@ -401,10 +405,12 @@ export default function Home() {
             </section>
 
             <section className="min-h-screen flex flex-col items-center justify-center text-white">
-              <img
+              <Image
                 ref={englishRef}
                 src="/images/english_text.png"
                 alt="English Text"
+                width={512}
+                height={300}
                 className={`w-[32rem] h-auto mx-auto transition-all duration-600 ease-out ${
                   englishTextVisible 
                     ? 'opacity-100 transform translate-y-0' 
@@ -422,27 +428,29 @@ export default function Home() {
                 }`}
                 style={{ boxShadow: 'none' }}
               >
-                <img
+                <Image
                   src="/images/accept_calendar.png"
                   alt="Add to Calendar"
+                  width={288}
+                  height={288}
                   className="w-72 h-72 sm:w-72 sm:h-72 md:w-60 md:h-60 object-contain"
-                  style={{ display: 'block' }}
                 />
               </a>  </section>
 
             {/* Wedding image section - mobile size on all devices */}
             <section className="min-h-screen w-full flex items-center justify-center">
-              <img
+              <Image
                 ref={weddingRef}
                 src="/images/wedding1.jpg"
                 alt="Wedding Photo"
+                width={400}
+                height={711}
                 className={`w-full max-w-sm h-auto object-cover rounded-lg shadow-lg transition-all duration-1000 ease-out ${
                   weddingImageVisible 
                     ? 'opacity-100 transform translate-y-0' 
                     : 'opacity-0 transform translate-y-12'
                 }`}
                 style={{ 
-                  display: 'block',
                   aspectRatio: '9/16'
                 }}
               />
@@ -450,17 +458,18 @@ export default function Home() {
 
             {/* Day 1 section - mobile size */}
             <section className="min-h-screen w-full flex items-center justify-center">
-              <img
+              <Image
                 ref={day1Ref}
                 src="/images/day1.png"
                 alt="Day 1"
+                width={400}
+                height={711}
                 className={`w-full max-w-sm h-auto object-cover rounded-lg shadow-lg transition-all duration-600 ease-out ${
                   day1Visible 
                     ? 'opacity-100 transform translate-y-0' 
                     : 'opacity-0 transform translate-y-12'
                 }`}
                 style={{ 
-                  display: 'block',
                   aspectRatio: '9/16'
                 }}
               />
@@ -468,33 +477,33 @@ export default function Home() {
 
             {/* Day 2 section - full height */}
             <section className="min-h-screen w-full flex items-center justify-center">
-              <img
+              <Image
                 ref={day2Ref}
                 src="/images/day2.png"
                 alt="Day 2"
+                width={400}
+                height={600}
                 className={`w-full max-w-sm h-auto object-contain rounded-lg shadow-lg transition-all duration-600 ease-out ${
                   day2Visible 
                     ? 'opacity-100 transform translate-y-0' 
                     : 'opacity-0 transform translate-y-12'
                 }`}
-                style={{ 
-                  display: 'block'
-                }}
               />
             </section>
 
             {/* Location section */}
             <section className="min-h-screen w-full flex flex-col items-center justify-center">
-              <img
+              <Image
                 ref={locationRef}
                 src="/images/location_hero.png"
                 alt="Location Hero"
+                width={400}
+                height={600}
                 className={`w-full max-w-sm h-auto object-contain rounded-lg shadow-lg transition-all duration-1000 ease-out mb-8 ${
                   locationVisible 
                     ? 'opacity-100 transform translate-y-0' 
                     : 'opacity-0 transform translate-y-12'
                 }`}
-                style={{ display: 'block' }}
               />
               <a
                 ref={locationButtonRef}
@@ -506,27 +515,29 @@ export default function Home() {
                 }`}
                 style={{ boxShadow: 'none' }}
               >
-                <img
+                <Image
                   src="/images/location.png"
                   alt="View Location"
+                  width={288}
+                  height={288}
                   className="w-72 h-72 sm:w-72 sm:h-72 md:w-60 md:h-60 object-contain"
-                  style={{ display: 'block' }}
                 />
               </a>
             </section>
 
             {/* Gallery section */}
             <section className="min-h-screen w-full flex flex-col items-center justify-center px-4">
-              <img
+              <Image
                 ref={galleryRef}
                 src="/images/gallery.png"
                 alt="Gallery"
+                width={288}
+                height={200}
                 className={`w-72 h-auto object-contain mb-8 transition-all duration-1000 ease-out ${
                   galleryVisible 
                     ? 'opacity-100 transform translate-y-0' 
                     : 'opacity-0 transform translate-y-12'
                 }`}
-                style={{ display: 'block' }}
               />
               
               {/* Gallery grid */}
@@ -537,9 +548,11 @@ export default function Home() {
               }`}>
                 {/* Single large image */}
                 <div className="w-full h-48 rounded-lg overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300 shadow-lg">
-                  <img
+                  <Image
                     src={galleryImages[0]}
                     alt="Gallery 1"
+                    width={400}
+                    height={300}
                     className="w-full h-full object-cover hover:opacity-90 transition-opacity duration-300"
                     onClick={() => openGallery(0)}
                   />
@@ -549,9 +562,11 @@ export default function Home() {
                 <div className="flex space-x-2">
                   {[1, 2, 3].map(i => (
                     <div key={i} className="flex-1 h-32 rounded-lg overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300 shadow-lg">
-                      <img
+                      <Image
                         src={galleryImages[i]}
                         alt={`Gallery ${i + 1}`}
+                        width={150}
+                        height={128}
                         className="w-full h-full object-cover hover:opacity-90 transition-opacity duration-300"
                         onClick={() => openGallery(i)}
                       />
@@ -561,9 +576,11 @@ export default function Home() {
                 
                 {/* Single image */}
                 <div className="w-full h-40 rounded-lg overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300 shadow-lg">
-                  <img
+                  <Image
                     src={galleryImages[4]}
                     alt="Gallery 5"
+                    width={400}
+                    height={160}
                     className="w-full h-full object-cover hover:opacity-90 transition-opacity duration-300"
                     onClick={() => openGallery(4)}
                   />
@@ -573,9 +590,11 @@ export default function Home() {
                 <div className="flex space-x-2">
                   {[5, 6].map(i => (
                     <div key={i} className="flex-1 h-56 rounded-lg overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300 shadow-lg">
-                      <img
+                      <Image
                         src={galleryImages[i]}
                         alt={`Gallery ${i + 1}`}
+                        width={200}
+                        height={224}
                         className="w-full h-full object-cover hover:opacity-90 transition-opacity duration-300"
                         onClick={() => openGallery(i)}
                       />
@@ -587,9 +606,11 @@ export default function Home() {
                 <div className="grid grid-cols-2 gap-2">
                   {[7, 8, 0, 1].map((i, index) => (
                     <div key={index} className="h-32 rounded-lg overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300 shadow-lg">
-                      <img
+                      <Image
                         src={galleryImages[i]}
                         alt={`Gallery ${i + 1}`}
+                        width={150}
+                        height={128}
                         className="w-full h-full object-cover hover:opacity-90 transition-opacity duration-300"
                         onClick={() => openGallery(i)}
                       />
@@ -602,15 +623,16 @@ export default function Home() {
             {/* Wishes section */}
             <section className="min-h-screen w-full flex flex-col items-center justify-center px-4">
               <div ref={wishesRef} className="w-full max-w-sm">
-                <img
+                <Image
                   src="/images/wishes.png"
                   alt="Wishes"
+                  width={288}
+                  height={200}
                   className={`w-72 h-auto object-contain mb-8 mx-auto transition-all duration-1000 ease-out ${
                     wishesVisible 
                       ? 'opacity-100 transform translate-y-0' 
                       : 'opacity-0 transform translate-y-12'
                   }`}
-                  style={{ display: 'block' }}
                 />
                 
                 {/* Wishes form */}
@@ -825,10 +847,13 @@ export default function Home() {
             <div className="flex flex-col items-center justify-center w-full">
               {!showRsvpVideo && (
                 <>
-                  <img
+                  <Image
                     src="/images/hero_pic3.png"
                     alt="Wedding Hero"
+                    width={768}
+                    height={1152}
                     className={`w-200 h-200 -mt-32 mx-auto sm:w-160 sm:h-200 md:w-[48rem] md:h-[72rem] object-contain mb-8 md:mb-6 lg:w-[48rem] lg:h-[48rem] lg:mb-4${animateRise ? ' animate-rise' : ''}`}
+                    priority
                   />
                   <button
                     type="button"
@@ -839,11 +864,13 @@ export default function Home() {
                       setShowKhmerText(false);
                     }}
                   >
-                    <img
+                    <Image
                       src="/images/accept_pic.png"
                       alt="RSVP"
+                      width={320}
+                      height={528}
                       className={`w-80 h-132 sm:w-72 sm:h-72 md:w-60 md:h-60 object-contain${animateRise ? ' animate-rise' : ''}`}
-                      style={{ display: 'block' }}
+                      priority
                     />
                   </button>
                 </>
@@ -857,9 +884,11 @@ export default function Home() {
       {selectedImage !== null && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-lg flex items-center justify-center z-50 animate-fadeIn">
           <div className="relative max-w-4xl max-h-full p-4">
-            <img
+            <Image
               src={galleryImages[selectedImage]}
               alt={`Gallery ${selectedImage + 1}`}
+              width={1200}
+              height={800}
               className={`max-w-full max-h-[85vh] object-contain rounded-lg transition-all duration-300 ease-in-out ${
                 imageTransition ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
               }`}
