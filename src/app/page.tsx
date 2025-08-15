@@ -828,7 +828,7 @@ export default function Home() {
                   <img
                     src="/images/hero_pic3.png"
                     alt="Wedding Hero"
-                    className={`w-172 h-172 -mt-32 mx-auto sm:w-80 sm:h-80 md:w-[36rem] md:h-[36rem] object-contain mb-8 md:mb-6 lg:w-[48rem] lg:h-[48rem] lg:mb-4${animateRise ? ' animate-rise' : ''}`}
+                    className={`w-120 h-172 -mt-32 mx-auto sm:w-160 sm:h-80 md:w-[48rem] md:h-[36rem] object-contain mb-8 md:mb-6 lg:w-[48rem] lg:h-[48rem] lg:mb-4${animateRise ? ' animate-rise' : ''}`}
                   />
                   <button
                     type="button"
