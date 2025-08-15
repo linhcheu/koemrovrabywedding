@@ -326,7 +326,7 @@ export default function Home() {
       <button
         onClick={toggleMusic}
         className="fixed right-6 top-6 z-50 bg-gradient-to-r from-pink-400 to-rose-400 rounded-full p-3 shadow-lg hover:from-pink-500 hover:to-rose-500 transition-all duration-300 transform hover:scale-110 animate-pulse"
-        style={{ boxShadow: '0 8px 25px rgba(244, 114, 182, 0.4)' }}
+        style={{ boxShadow: '0 8px 25px rgba(169, 90, 131, 0.4)' }}
       >
         {isPlaying ? (
           <FaPause className="w-5 h-5 text-white drop-shadow-sm" />
