@@ -41,9 +41,9 @@ export default function Home() {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [formData, setFormData] = React.useState({ name: '', message: '' });
   const [galleryImages] = React.useState([
-    '/images/wedding1.jpg', '/images/hero_pic1.png', '/images/hero_pic2.png',
-    '/images/hero_pic3.png', '/images/day1.png', '/images/day2.png',
-    '/images/savethedate_pic.png', '/images/wedding10.jpg', '/images/wedding11.jpg'
+    '/images/wedding1.jpg', '/images/wedding9.jpg', '/images/wedding9.jpg',
+    '/images/wedding9.jpg', '/images/wedding10.jpg', '/images/wedding9.jpg',
+    '/images/wedding9.jpg', '/images/wedding10.jpg', '/images/wedding11.jpg'
   ]);
   const [selectedImage, setSelectedImage] = React.useState<number | null>(null);
   const [imageTransition, setImageTransition] = React.useState(false);
