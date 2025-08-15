@@ -373,7 +373,7 @@ export default function Home() {
             <div 
               className="absolute inset-0 h-full w-full z-5"
               style={{ 
-                background: 'rgba(153, 107, 136, 1)',
+                background: 'rgba(125, 72, 100, 1)',
                 mixBlendMode: 'overlay'
               }}
             />
