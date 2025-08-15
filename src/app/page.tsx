@@ -899,48 +899,49 @@ export default function Home() {
 
   {/* Bottom Navigation Bar */}
         {showKhmerText && (
-          <nav className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-none bg-opacity-0 backdrop-blur-md rounded-xl px-2 py-2 shadow-lg z-40">  <div className="flex items-center space-x-6">
-            <button
-              onClick={() => scrollToSection(khmerRef)}
-              className="flex flex-col items-center space-y-1 p-1 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group"
-            >
-              <FaCalendarAlt className="w-6 h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
-              <span className="text-xs text-pink-300 group-hover:text-pink-200 transition-colors">Calendar</span>
-            </button>
-            
-            <button
-              onClick={() => scrollToSection(locationRef)}
-              className="flex flex-col items-center space-y-1 p-1 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group"
-            >
-              <FaMapMarkerAlt className="w-6 h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
-              <span className="text-xs text-pink-300 group-hover:text-pink-200 transition-colors">Location</span>
-            </button>
-            
-            <button
-              onClick={() => scrollToSection(galleryRef)}
-              className="flex flex-col items-center space-y-1 p-1 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group"
-            >
-              <FaImages className="w-6 h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
-              <span className="text-xs text-pink-300 group-hover:text-pink-200 transition-colors">Gallery</span>
-            </button>
-            
-            <button
-              onClick={() => scrollToSection(wishesRef)}
-              className="flex flex-col items-center space-y-1 p-1 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group"
-            >
-              <FaHeart className="w-6 h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
-              <span className="text-xs text-pink-300 group-hover:text-pink-200 transition-colors">Wishes</span>
-            </button>
-            
-            <button
-              onClick={() => scrollToSection(loveMessageRef)}
-              className="flex flex-col items-center space-y-1 p-1 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group"
-            >
-              <FaEnvelopeCircleCheck className="w-6 h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
-              <span className="text-xs text-pink-300 group-hover:text-pink-200 transition-colors">Message</span>
-            </button>
-          </div>
-        </nav>
+          <nav className="fixed bottom-4 sm:bottom-6 left-1/2 transform -translate-x-1/2 bg-black/20 backdrop-blur-md rounded-xl px-2 sm:px-4 py-2 shadow-lg z-40 max-w-[90vw] overflow-x-auto">
+            <div className="flex items-center justify-center space-x-2 sm:space-x-4 md:space-x-6 min-w-max">
+              <button
+                onClick={() => scrollToSection(khmerRef)}
+                className="flex flex-col items-center space-y-1 p-1 sm:p-2 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group min-w-[60px] sm:min-w-[70px]"
+              >
+                <FaCalendarAlt className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
+                <span className="text-[10px] sm:text-xs text-pink-300 group-hover:text-pink-200 transition-colors leading-tight">Calendar</span>
+              </button>
+              
+              <button
+                onClick={() => scrollToSection(locationRef)}
+                className="flex flex-col items-center space-y-1 p-1 sm:p-2 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group min-w-[60px] sm:min-w-[70px]"
+              >
+                <FaMapMarkerAlt className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
+                <span className="text-[10px] sm:text-xs text-pink-300 group-hover:text-pink-200 transition-colors leading-tight">Location</span>
+              </button>
+              
+              <button
+                onClick={() => scrollToSection(galleryRef)}
+                className="flex flex-col items-center space-y-1 p-1 sm:p-2 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group min-w-[60px] sm:min-w-[70px]"
+              >
+                <FaImages className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
+                <span className="text-[10px] sm:text-xs text-pink-300 group-hover:text-pink-200 transition-colors leading-tight">Gallery</span>
+              </button>
+              
+              <button
+                onClick={() => scrollToSection(wishesRef)}
+                className="flex flex-col items-center space-y-1 p-1 sm:p-2 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group min-w-[60px] sm:min-w-[70px]"
+              >
+                <FaHeart className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
+                <span className="text-[10px] sm:text-xs text-pink-300 group-hover:text-pink-200 transition-colors leading-tight">Wishes</span>
+              </button>
+              
+              <button
+                onClick={() => scrollToSection(loveMessageRef)}
+                className="flex flex-col items-center space-y-1 p-1 sm:p-2 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group min-w-[60px] sm:min-w-[70px]"
+              >
+                <FaEnvelopeCircleCheck className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
+                <span className="text-[10px] sm:text-xs text-pink-300 group-hover:text-pink-200 transition-colors leading-tight">Message</span>
+              </button>
+            </div>
+          </nav>
       )}
     </div>
   );
