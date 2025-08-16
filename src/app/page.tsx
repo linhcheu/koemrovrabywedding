@@ -1,7 +1,7 @@
 'use client';
 import React from "react";
 import Image from "next/image";
-import { FaChevronDown, FaPlay,FaSmile, FaPause, FaCalendarAlt, FaGlobe, FaMapMarkerAlt, FaImages, FaHeart, FaFacebookF, FaTelegramPlane, FaInstagram, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronDown, FaPlay, FaSmile, FaPause, FaCalendarAlt, FaGlobe, FaMapMarkerAlt, FaImages, FaHeart, FaFacebookF, FaTelegramPlane, FaInstagram, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { FaEnvelopeCircleCheck } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
 import { supabase } from "@/lib/supabase";
@@ -21,7 +21,7 @@ export default function Home() {
   const [galleryVisible, setGalleryVisible] = React.useState(false);
   const [wishesVisible, setWishesVisible] = React.useState(false);
   const [loveMessageVisible, setLoveMessageVisible] = React.useState(false);
-  
+
   // Track which elements have already been animated (never reset to false)
   const [khmerTextAnimated, setKhmerTextAnimated] = React.useState(false);
   const [englishTextAnimated, setEnglishTextAnimated] = React.useState(false);
@@ -35,7 +35,7 @@ export default function Home() {
   const [wishesAnimated, setWishesAnimated] = React.useState(false);
   const [loveMessageAnimated, setLoveMessageAnimated] = React.useState(false);
   const [isPlaying, setIsPlaying] = React.useState(false);
-  const [wishes, setWishes] = React.useState<Array<{id?: number, name: string, message: string, created_at: string}>>([]);
+  const [wishes, setWishes] = React.useState<Array<{ id?: number, name: string, message: string, created_at: string }>>([]);
   const [isLoadingWishes, setIsLoadingWishes] = React.useState(false);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [formData, setFormData] = React.useState({ name: '', message: '' });
@@ -50,7 +50,7 @@ export default function Home() {
   const [imageTransition, setImageTransition] = React.useState(false);
   const [touchStart, setTouchStart] = React.useState(0);
   const [touchEnd, setTouchEnd] = React.useState(0);
-  
+
   const khmerRef = React.useRef<HTMLImageElement>(null);
   const englishRef = React.useRef<HTMLImageElement>(null);
   const calendarRef = React.useRef<HTMLAnchorElement>(null);
@@ -150,7 +150,7 @@ export default function Home() {
           // If autoplay is blocked, try to enable it on first user interaction
           console.log('Autoplay prevented by browser, will play on first user interaction', error);
           setIsPlaying(false);
-          
+
           // Listen for any user interaction to start music
           const enableAutoplay = async () => {
             try {
@@ -162,7 +162,7 @@ export default function Home() {
               console.log('Could not start music:', e);
             }
           };
-          
+
           document.addEventListener('click', enableAutoplay, { once: true });
           document.addEventListener('touchstart', enableAutoplay, { once: true });
         }
@@ -183,7 +183,7 @@ export default function Home() {
           .from('wedding_wishes')
           .select('*')
           .order('created_at', { ascending: false });
-        
+
         if (error) {
           console.error('Error loading wishes:', error);
         } else {
@@ -220,21 +220,21 @@ export default function Home() {
   const handleWishSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { name, message } = formData;
-    
+
     if (name.trim() && message.trim()) {
       setIsSubmitting(true);
       try {
         const { data, error } = await supabase
           .from('wedding_wishes')
           .insert([
-            { 
-              name: name.trim(), 
-              message: message.trim() 
+            {
+              name: name.trim(),
+              message: message.trim()
             }
           ])
           .select()
           .single();
-        
+
         if (error) {
           console.error('Error submitting wish:', error);
           alert('Sorry, there was an error submitting your wish. Please try again.');
@@ -268,7 +268,7 @@ export default function Home() {
       setImageTransition(false);
     }, 200);
   };
-  
+
   const nextImage = () => {
     setImageTransition(true);
     setTimeout(() => {
@@ -276,7 +276,7 @@ export default function Home() {
       setImageTransition(false);
     }, 150);
   };
-  
+
   const prevImage = () => {
     setImageTransition(true);
     setTimeout(() => {
@@ -297,7 +297,7 @@ export default function Home() {
 
   const handleTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
-    
+
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > 50;
     const isRightSwipe = distance < -50;
@@ -392,18 +392,18 @@ export default function Home() {
               />
             </div>
             {/* Frame overlay on top of video but behind text */}
-            <div 
+            <div
               className="absolute inset-0 h-full w-full bg-cover bg-center bg-no-repeat z-10"
-              style={{ 
+              style={{
                 backgroundImage: 'url(/images/frame.png)',
                 opacity: 1,
                 boxShadow: 'none'
               }}
             />
             {/* Light overlay to brighten the video background */}
-            <div 
+            <div
               className="absolute inset-0 h-full w-full z-5"
-              style={{ 
+              style={{
                 background: 'rgba(125, 72, 100, 1)',
                 mixBlendMode: 'overlay'
               }}
@@ -419,17 +419,15 @@ export default function Home() {
                 alt="Khmer Text"
                 width={512}
                 height={300}
-                className={`w-[32rem] h-auto mx-auto transition-all duration-600 ease-out ${
-                  khmerTextVisible 
-                    ? 'opacity-100 transform translate-y-0' 
-                    : 'opacity-0 transform translate-y-12'
-                }`}
+                className={`w-[32rem] h-auto mx-auto transition-all duration-600 ease-out ${khmerTextVisible
+                  ? 'opacity-100 transform translate-y-0'
+                  : 'opacity-0 transform translate-y-12'
+                  }`}
                 priority
               />
               {/* Arrow under Khmer text */}
-              <div className={`mt-8 animate-bounce transition-all duration-600 delay-500 ${
-                khmerTextVisible ? 'opacity-100' : 'opacity-0'
-              }`}>
+              <div className={`mt-8 animate-bounce transition-all duration-600 delay-500 ${khmerTextVisible ? 'opacity-100' : 'opacity-0'
+                }`}>
                 <FaChevronDown className="w-8 h-8 text-white animate-pulse" />
               </div>
             </section>
@@ -441,11 +439,10 @@ export default function Home() {
                 alt="English Text"
                 width={512}
                 height={300}
-                className={`w-[32rem] h-auto mx-auto transition-all duration-600 ease-out ${
-                  englishTextVisible 
-                    ? 'opacity-100 transform translate-y-0' 
-                    : 'opacity-0 transform translate-y-12'
-                }`}
+                className={`w-[32rem] h-auto mx-auto transition-all duration-600 ease-out ${englishTextVisible
+                  ? 'opacity-100 transform translate-y-0'
+                  : 'opacity-0 transform translate-y-12'
+                  }`}
               />
               {/* Calendar button under English text */}
               <a
@@ -453,9 +450,8 @@ export default function Home() {
                 href="https://calendar.app.google/g5y1ASsxtj5MhScM7"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`bg-transparent p-0 rounded-full flex items-center justify-center mt-8 transition-all duration-600 delay-500 ${
-                  calendarButtonVisible ? 'opacity-100 animate-popup transform translate-y-0' : 'opacity-0 transform translate-y-12'
-                }`}
+                className={`bg-transparent p-0 rounded-full flex items-center justify-center mt-8 transition-all duration-600 delay-500 ${calendarButtonVisible ? 'opacity-100 animate-popup transform translate-y-0' : 'opacity-0 transform translate-y-12'
+                  }`}
                 style={{ boxShadow: 'none' }}
               >
                 <Image
@@ -475,12 +471,11 @@ export default function Home() {
                 alt="Wedding Photo"
                 width={400}
                 height={711}
-                className={`w-full max-w-sm h-auto object-cover rounded-lg shadow-lg transition-all duration-1000 ease-out ${
-                  weddingImageVisible 
-                    ? 'opacity-100 transform translate-y-0' 
-                    : 'opacity-0 transform translate-y-12'
-                }`}
-                style={{ 
+                className={`w-full max-w-sm h-auto object-cover rounded-lg shadow-lg transition-all duration-1000 ease-out ${weddingImageVisible
+                  ? 'opacity-100 transform translate-y-0'
+                  : 'opacity-0 transform translate-y-12'
+                  }`}
+                style={{
                   aspectRatio: '9/16'
                 }}
               />
@@ -494,12 +489,11 @@ export default function Home() {
                 alt="Day 1"
                 width={400}
                 height={711}
-                className={`w-full max-w-sm h-auto object-cover rounded-lg shadow-lg transition-all duration-600 ease-out ${
-                  day1Visible 
-                    ? 'opacity-100 transform translate-y-0' 
-                    : 'opacity-0 transform translate-y-12'
-                }`}
-                style={{ 
+                className={`w-full max-w-sm h-auto object-cover rounded-lg shadow-lg transition-all duration-600 ease-out ${day1Visible
+                  ? 'opacity-100 transform translate-y-0'
+                  : 'opacity-0 transform translate-y-12'
+                  }`}
+                style={{
                   aspectRatio: '9/16'
                 }}
               />
@@ -513,11 +507,10 @@ export default function Home() {
                 alt="Day 2"
                 width={400}
                 height={600}
-                className={`w-full max-w-sm h-auto object-contain rounded-lg shadow-lg transition-all duration-600 ease-out ${
-                  day2Visible 
-                    ? 'opacity-100 transform translate-y-0' 
-                    : 'opacity-0 transform translate-y-12'
-                }`}
+                className={`w-full max-w-sm h-auto object-contain rounded-lg shadow-lg transition-all duration-600 ease-out ${day2Visible
+                  ? 'opacity-100 transform translate-y-0'
+                  : 'opacity-0 transform translate-y-12'
+                  }`}
               />
             </section>
 
@@ -529,20 +522,18 @@ export default function Home() {
                 alt="Location Hero"
                 width={400}
                 height={600}
-                className={`w-full max-w-sm h-auto object-contain rounded-lg shadow-lg transition-all duration-1000 ease-out mb-8 ${
-                  locationVisible 
-                    ? 'opacity-100 transform translate-y-0' 
-                    : 'opacity-0 transform translate-y-12'
-                }`}
+                className={`w-full max-w-sm h-auto object-contain rounded-lg shadow-lg transition-all duration-1000 ease-out mb-8 ${locationVisible
+                  ? 'opacity-100 transform translate-y-0'
+                  : 'opacity-0 transform translate-y-12'
+                  }`}
               />
               <a
                 ref={locationButtonRef}
                 href="https://maps.app.goo.gl/9bA27g3cLg7H3Yqs6?g_st=ii"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`bg-transparent p-0 rounded-full flex items-center justify-center transition-all duration-600 delay-500 ${
-                  locationButtonVisible ? 'opacity-100 animate-popup transform translate-y-0' : 'opacity-0 transform translate-y-12'
-                }`}
+                className={`bg-transparent p-0 rounded-full flex items-center justify-center transition-all duration-600 delay-500 ${locationButtonVisible ? 'opacity-100 animate-popup transform translate-y-0' : 'opacity-0 transform translate-y-12'
+                  }`}
                 style={{ boxShadow: 'none' }}
               >
                 <Image
@@ -563,19 +554,17 @@ export default function Home() {
                 alt="Gallery"
                 width={288}
                 height={200}
-                className={`w-72 h-auto object-contain mb-8 transition-all duration-1000 ease-out ${
-                  galleryVisible 
-                    ? 'opacity-100 transform translate-y-0' 
-                    : 'opacity-0 transform translate-y-12'
-                }`}
-              />
-              
-              {/* Gallery grid */}
-              <div className={`w-full max-w-sm space-y-4 transition-all duration-600 delay-300 ease-out ${
-                galleryVisible 
-                  ? 'opacity-100 transform translate-y-0' 
+                className={`w-72 h-auto object-contain mb-8 transition-all duration-1000 ease-out ${galleryVisible
+                  ? 'opacity-100 transform translate-y-0'
                   : 'opacity-0 transform translate-y-12'
-              }`}>
+                  }`}
+              />
+
+              {/* Gallery grid */}
+              <div className={`w-full max-w-sm space-y-4 transition-all duration-600 delay-300 ease-out ${galleryVisible
+                ? 'opacity-100 transform translate-y-0'
+                : 'opacity-0 transform translate-y-12'
+                }`}>
                 {/* Single large image */}
                 <div className="w-full h-48 rounded-lg overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300 shadow-lg">
                   <Image
@@ -686,19 +675,17 @@ export default function Home() {
                   alt="Wishes"
                   width={288}
                   height={200}
-                  className={`w-72 h-auto object-contain mb-8 mx-auto transition-all duration-1000 ease-out ${
-                    wishesVisible 
-                      ? 'opacity-100 transform translate-y-0' 
-                      : 'opacity-0 transform translate-y-12'
-                  }`}
-                />
-                
-                {/* Wishes form */}
-                <form onSubmit={handleWishSubmit} className={`space-y-4 mb-8 transition-all duration-600 delay-300 ease-out ${
-                  wishesVisible 
-                    ? 'opacity-100 transform translate-y-0' 
+                  className={`w-72 h-auto object-contain mb-8 mx-auto transition-all duration-1000 ease-out ${wishesVisible
+                    ? 'opacity-100 transform translate-y-0'
                     : 'opacity-0 transform translate-y-12'
-                }`}>
+                    }`}
+                />
+
+                {/* Wishes form */}
+                <form onSubmit={handleWishSubmit} className={`space-y-4 mb-8 transition-all duration-600 delay-300 ease-out ${wishesVisible
+                  ? 'opacity-100 transform translate-y-0'
+                  : 'opacity-0 transform translate-y-12'
+                  }`}>
                   <input
                     type="text"
                     name="name"
@@ -720,22 +707,20 @@ export default function Home() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`w-full p-3 rounded-lg text-white font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg font-[family-name:var(--font-merriweather)] ${
-                      isSubmitting 
-                        ? 'bg-gray-400 cursor-not-allowed' 
-                        : 'bg-gradient-to-r from-pink-400 to-rose-400 hover:from-pink-500 hover:to-rose-500'
-                    }`}
+                    className={`w-full p-3 rounded-lg text-white font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg font-[family-name:var(--font-merriweather)] ${isSubmitting
+                      ? 'bg-gray-400 cursor-not-allowed'
+                      : 'bg-gradient-to-r from-pink-400 to-rose-400 hover:from-pink-500 hover:to-rose-500'
+                      }`}
                   >
                     {isSubmitting ? 'Sending Wishes... 💕' : 'Send Wishes ❤️'}
                   </button>
                 </form>
-                
+
                 {/* Display wishes - with scrollable container */}
-                <div className={`transition-all duration-600 delay-500 ease-out border border-pink-300/100 rounded-xl shadow-lg ${
-                  wishesVisible 
-                  ? 'opacity-100 transform translate-y-0' 
+                <div className={`transition-all duration-600 delay-500 ease-out border border-pink-300/100 rounded-xl shadow-lg ${wishesVisible
+                  ? 'opacity-100 transform translate-y-0'
                   : 'opacity-0 transform translate-y-12'
-                }`}>
+                  }`}>
                   <div className="max-h-96 overflow-y-auto space-y-4 scrollbar-pink- pr-2 p-4">
                     {isLoadingWishes ? (
                       <div className="text-center text-white opacity-60 py-8">
@@ -753,13 +738,13 @@ export default function Home() {
                               <FaHeart /> <FaSmile /> {wish.name}
                             </h4>
                             <span className="text-pink-300/80 text-xs font-[family-name:var(--font-merriweather)]">
-                              {new Date(wish.created_at).toLocaleDateString('en-US', { 
-                                year: 'numeric', 
-                                month: '2-digit', 
-                                day: '2-digit' 
-                              })} | {new Date(wish.created_at).toLocaleTimeString('en-US', { 
-                                hour: '2-digit', 
-                                minute: '2-digit' 
+                              {new Date(wish.created_at).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: '2-digit',
+                                day: '2-digit'
+                              })} | {new Date(wish.created_at).toLocaleTimeString('en-US', {
+                                hour: '2-digit',
+                                minute: '2-digit'
                               })}
                             </span>
                           </div>
@@ -775,11 +760,10 @@ export default function Home() {
             {/* Love Message Section */}
             <section className="min-h-screen w-full flex flex-col items-center justify-center px-4">
               <div ref={loveMessageRef} className="w-full max-w-2xl text-center">
-                <div className={`transition-all duration-1000 ease-out ${
-                  loveMessageVisible 
-                    ? 'opacity-100 transform translate-y-0' 
-                    : 'opacity-0 transform translate-y-12'
-                } flex justify-center items-center w-full`}>
+                <div className={`transition-all duration-1000 ease-out ${loveMessageVisible
+                  ? 'opacity-100 transform translate-y-0'
+                  : 'opacity-0 transform translate-y-12'
+                  } flex justify-center items-center w-full`}>
                   <div className="bg-none bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 border border-pink-400/30 shadow-xl w-full max-w-sm mx-auto">
                     <div className="mb-6 text-center">
                       <div className="text-6xl mb-4">💕</div>
@@ -787,80 +771,77 @@ export default function Home() {
                         From Our Hearts
                       </h2>
                     </div>
-                    
+
                     <p className="text-xl leading-relaxed text-pink-300 mb-8 font-[family-name:var(--font-merriweather)] text-center">
-                      &ldquo;Sending a lot of love from both the groom and bride! 
+                      &ldquo;Sending a lot of love from both the groom and bride!
                       <br />
                       Can&rsquo;t wait to celebrate our special day with you!&rdquo;
                     </p>
-                    
+
                     <div className="flex justify-center items-center space-x-4 text-pink-200">
                       <div className="w-12 h-0.5 bg-pink-400 opacity-50"></div>
                       <div className="w-12 h-0.5 bg-pink-400 opacity-50"></div>
                     </div>
-                    
+
                     <div className="mt-6 text-pink-300 font-[family-name:var(--font-merriweather)] text-center">
                       <p className="text-lg font-semibold">With all our love,</p>
                       <p className="text-base opacity-80">The Happy Couple</p>
                     </div>
                   </div>
-                </div>  </div>
-            </section>
-
-            {/* Credit Section - No Animation */}
-            <section className="min-h-screen w-full flex flex-col items-center justify-center px-4 bg-transparent">
-              <div className="w-full max-w-sm text-center space-y-6">
-                <h2 className="text-l font-[family-name:var(--font-merriweather)] mb-8 text-pink-300">E-Invitation by: <a href="https://linhcheu-portfolio.vercel.app/" className="text-pink-100 underline hover:text-pink-300 transition-colors duration-200">Linhcheu Meng</a></h2>
+                </div>
+              </div>
+              <div className="w-full max-w-sm text-center space-y-6" >
+                <h2 className="text-l font-[family-name:var(--font-merriweather)] mb-8 text-pink-300" style={{ paddingTop: '40px' }}>E-Invitation by: <a href="https://linhcheu-portfolio.vercel.app/" className="text-pink-100 underline hover:text-pink-300 transition-colors duration-200">Linhcheu Meng</a></h2>
 
                 {/* Social Media Icons */}
-                <div className="flex justify-center space-x-2 mb-3">
-                  <a 
-                    href="https://www.facebook.com/linhcheu.meng/" 
-                    target="_blank" 
+                <div className="flex justify-center space-x-6 mb-3">
+                  <a
+                    href="https://www.facebook.com/linhcheu.meng/"
+                    target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-pink-500/20 backdrop-blur-sm hover:bg-pink-500/30 border border-pink-400/30 rounded-full p-4 transition-all duration-300 hover:scale-110"
+                    className="transition-all duration-300 hover:scale-110"
                   >
-                    <FaFacebookF className="w-6 h-6 text-pink-300" />
+                    <FaFacebookF className="w-8 h-8 text-pink-300" />
                   </a>
-                  
-                  <a 
-                    href="https://t.me/lingcheuu" 
-                    target="_blank" 
+
+                  <a
+                    href="https://t.me/lingcheuu"
+                    target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-pink-500/20 backdrop-blur-sm hover:bg-pink-500/30 border border-pink-400/30 rounded-full p-4 transition-all duration-300 hover:scale-110"
+                    className="transition-all duration-300 hover:scale-110"
                   >
-                    <FaTelegramPlane className="w-6 h-6 text-pink-300" />
+                    <FaTelegramPlane className="w-8 h-8 text-pink-300" />
                   </a>
-                  
-                  <a 
-                    href="https://www.instagram.com/lingcheuu/" 
-                    target="_blank" 
+
+                  <a
+                    href="https://www.instagram.com/lingcheuu/"
+                    target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-pink-500/20 backdrop-blur-sm hover:bg-pink-500/30 border border-pink-400/30 rounded-full p-4 transition-all duration-300 hover:scale-110"
+                    className="transition-all duration-300 hover:scale-110"
                   >
-                    <FaInstagram className="w-6 h-6 text-pink-300" />
+                    <FaInstagram className="w-8 h-8 text-pink-300" />
                   </a>
                   <a
                     href="https://linhcheu-portfolio.vercel.app/"
-                    target="_blank"
+                      target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-pink-500/20 backdrop-blur-sm hover:bg-pink-500/30 border border-pink-400/30 rounded-full p-4 transition-all duration-300 hover:scale-110"
+                    className="transition-all duration-300 hover:scale-110 "
                   >
-                    <FaGlobe className="w-6 h-6 text-pink-300" />
+                    <FaGlobe className="w-8 h-8 text-pink-300" />
                   </a>
                 </div>
-                
+
                 {/* Contact Number */}
-                <div className="text-lg">
-                  <p className="text-pink-200 mb-2">Contact Number:</p>
-                  <a 
-                    href="tel:0965942596" 
-                    className="text-pink-300 hover:text-pink-200 font-semibold transition-colors duration-300"
+                <div className="text-base">
+                  <p className="text-pink-200 mb-2 font-[family-name:var(--font-merriweather)]">Contact Number:</p>
+                  <a
+                    href="tel:0965942596"
+                    className="text-pink-300 hover:text-pink-200 font-normal transition-colors duration-300"
                   >
                     096 59 42 596 / 012 200 967
                   </a>
                 </div>
-                
+
                 {/* Copyright */}
                 <div className="text-sm text-pink-200/70 pt-8 border-t border-pink-400/30">
                   <p>© 2025 Wedding Invitation. All rights reserved.</p>
@@ -906,7 +887,7 @@ export default function Home() {
               onEnded={handleRsvpVideoEnd}
             />
           </div>
-          
+
           <div className="absolute inset-0 z-10 flex flex-col items-center justify-center w-full h-full text-white text-center px-4 sm:px-6">
             <div className="flex flex-col items-center justify-center w-full">
               {!showRsvpVideo && (
@@ -943,11 +924,11 @@ export default function Home() {
           </div>
         </div>
       )}
-      
+
       {/* Gallery Modal */}
       {selectedImage !== null && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-lg flex items-center justify-center z-50 animate-fadeIn">
-          <div 
+          <div
             className="relative max-w-4xl max-h-full p-4"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
@@ -958,12 +939,11 @@ export default function Home() {
               alt={`Gallery ${selectedImage + 1}`}
               width={1200}
               height={800}
-              className={`max-w-full max-h-[85vh] object-contain rounded-lg transition-all duration-300 ease-in-out select-none ${
-                imageTransition ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
-              }`}
+              className={`max-w-full max-h-[85vh] object-contain rounded-lg transition-all duration-300 ease-in-out select-none ${imageTransition ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+                }`}
               draggable={false}
             />
-            
+
             {/* Close button - minimalist */}
             <button
               onClick={closeGallery}
@@ -971,7 +951,7 @@ export default function Home() {
             >
               <IoClose className="w-8 h-8" />
             </button>
-            
+
             {/* Previous button - minimalist */}
             <button
               onClick={prevImage}
@@ -979,7 +959,7 @@ export default function Home() {
             >
               <FaChevronLeft className="w-6 h-6" />
             </button>
-            
+
             {/* Next button - minimalist */}
             <button
               onClick={nextImage}
@@ -987,65 +967,61 @@ export default function Home() {
             >
               <FaChevronRight className="w-6 h-6" />
             </button>
-            
+
             {/* Image counter */}
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/50 rounded-full px-3 py-1 text-white text-sm">
               {selectedImage + 1} / {galleryImages.length}
             </div>
 
-            {/* Touch instruction hint (shows briefly) */}
-            <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 text-white/70 text-xs animate-pulse">
-              👆 Swipe left/right to navigate
-            </div>
           </div>
         </div>
       )}
 
-  {/* Bottom Navigation Bar */}
-        {showKhmerText && (
-          <nav className="fixed bottom-4 sm:bottom-6 left-1/2 transform -translate-x-1/2 bg-black/20 backdrop-blur-md rounded-xl px-2 sm:px-4 py-2 shadow-lg z-40 max-w-[90vw] overflow-x-auto">
-            <div className="flex items-center justify-center space-x-2 sm:space-x-4 md:space-x-6 min-w-max">
-              <button
-                onClick={() => scrollToSection(khmerRef)}
-                className="flex flex-col items-center space-y-1 p-1 sm:p-2 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group min-w-[60px] sm:min-w-[70px]"
-              >
-                <FaCalendarAlt className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
-                <span className="text-[10px] sm:text-xs text-pink-300 group-hover:text-pink-200 transition-colors leading-tight">Calendar</span>
-              </button>
-              
-              <button
-                onClick={() => scrollToSection(locationRef)}
-                className="flex flex-col items-center space-y-1 p-1 sm:p-2 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group min-w-[60px] sm:min-w-[70px]"
-              >
-                <FaMapMarkerAlt className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
-                <span className="text-[10px] sm:text-xs text-pink-300 group-hover:text-pink-200 transition-colors leading-tight">Location</span>
-              </button>
-              
-              <button
-                onClick={() => scrollToSection(galleryRef)}
-                className="flex flex-col items-center space-y-1 p-1 sm:p-2 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group min-w-[60px] sm:min-w-[70px]"
-              >
-                <FaImages className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
-                <span className="text-[10px] sm:text-xs text-pink-300 group-hover:text-pink-200 transition-colors leading-tight">Gallery</span>
-              </button>
-              
-              <button
-                onClick={() => scrollToSection(wishesRef)}
-                className="flex flex-col items-center space-y-1 p-1 sm:p-2 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group min-w-[60px] sm:min-w-[70px]"
-              >
-                <FaHeart className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
-                <span className="text-[10px] sm:text-xs text-pink-300 group-hover:text-pink-200 transition-colors leading-tight">Wishes</span>
-              </button>
-              
-              <button
-                onClick={() => scrollToSection(loveMessageRef)}
-                className="flex flex-col items-center space-y-1 p-1 sm:p-2 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group min-w-[60px] sm:min-w-[70px]"
-              >
-                <FaEnvelopeCircleCheck className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
-                <span className="text-[10px] sm:text-xs text-pink-300 group-hover:text-pink-200 transition-colors leading-tight">Message</span>
-              </button>
-            </div>
-          </nav>
+      {/* Bottom Navigation Bar */}
+      {showKhmerText && (
+        <nav className="fixed bottom-4 sm:bottom-6 left-1/2 transform -translate-x-1/2 bg-black/20 backdrop-blur-md rounded-xl px-2 sm:px-4 py-2 shadow-lg z-40 max-w-[90vw] overflow-x-auto font-[family-name:var(--font-merriweather)]">
+          <div className="flex items-center justify-center space-x-2 sm:space-x-4 md:space-x-6 min-w-max">
+            <button
+              onClick={() => scrollToSection(khmerRef)}
+              className="flex flex-col items-center space-y-1 p-1 sm:p-2 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group min-w-[60px] sm:min-w-[70px]"
+            >
+              <FaCalendarAlt className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
+              <span className="text-[10px] sm:text-xs text-pink-300 group-hover:text-pink-200 transition-colors leading-tight">Calendar</span>
+            </button>
+
+            <button
+              onClick={() => scrollToSection(locationRef)}
+              className="flex flex-col items-center space-y-1 p-1 sm:p-2 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group min-w-[60px] sm:min-w-[70px]"
+            >
+              <FaMapMarkerAlt className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
+              <span className="text-[10px] sm:text-xs text-pink-300 group-hover:text-pink-200 transition-colors leading-tight">Location</span>
+            </button>
+
+            <button
+              onClick={() => scrollToSection(galleryRef)}
+              className="flex flex-col items-center space-y-1 p-1 sm:p-2 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group min-w-[60px] sm:min-w-[70px]"
+            >
+              <FaImages className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
+              <span className="text-[10px] sm:text-xs text-pink-300 group-hover:text-pink-200 transition-colors leading-tight">Gallery</span>
+            </button>
+
+            <button
+              onClick={() => scrollToSection(wishesRef)}
+              className="flex flex-col items-center space-y-1 p-1 sm:p-2 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group min-w-[60px] sm:min-w-[70px]"
+            >
+              <FaHeart className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
+              <span className="text-[10px] sm:text-xs text-pink-300 group-hover:text-pink-200 transition-colors leading-tight">Wishes</span>
+            </button>
+
+            <button
+              onClick={() => scrollToSection(loveMessageRef)}
+              className="flex flex-col items-center space-y-1 p-1 sm:p-2 rounded-lg hover:bg-white hover:bg-opacity-20 transition-all duration-300 group min-w-[60px] sm:min-w-[70px]"
+            >
+              <FaEnvelopeCircleCheck className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-pink-300 group-hover:text-pink-200 transition-colors" />
+              <span className="text-[10px] sm:text-xs text-pink-300 group-hover:text-pink-200 transition-colors leading-tight">Message</span>
+            </button>
+          </div>
+        </nav>
       )}
     </div>
   );
