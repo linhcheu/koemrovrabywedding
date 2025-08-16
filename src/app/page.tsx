@@ -404,7 +404,7 @@ export default function Home() {
             <div
               className="absolute inset-0 h-full w-full z-5"
               style={{
-                background: 'rgba(125, 72, 100, 1)',
+                background: 'rgba(234, 151, 195, 1)',
                 mixBlendMode: 'overlay'
               }}
             />
@@ -891,34 +891,39 @@ export default function Home() {
           <div className="absolute inset-0 z-10 flex flex-col items-center justify-center w-full h-full text-white text-center px-4 sm:px-6">
             <div className="flex flex-col items-center justify-center w-full">
               {!showRsvpVideo && (
-                <>
+                <div className="relative w-full flex flex-col items-center justify-center gap-4 md:gap-0">
+                  {/* Hero image - responsive and centered */}
                   <Image
                     src="/images/hero_pic3.png"
                     alt="Wedding Hero"
                     width={768}
                     height={1152}
-                    className={`w-200 h-200 -mt-32 mx-auto sm:w-160 sm:h-200 md:w-[48rem] md:h-[72rem] object-contain mb-8 md:mb-6 lg:w-[48rem] lg:h-[48rem] lg:mb-4${animateRise ? ' animate-rise' : ''}`}
+                    className={`w-full max-w-sm sm:max-w-md md:max-w-xl mx-auto object-contain mb-2 ${animateRise ? ' animate-rise' : ''}`}
                     priority
                   />
-                  <button
-                    type="button"
-                    className="bg-transparent p-0 rounded-full flex items-center justify-center animate-popup -mt-80 md:mt-20"
-                    style={{ boxShadow: 'none' }}
-                    onClick={() => {
-                      setShowRsvpVideo(true);
-                      setShowKhmerText(false);
-                    }}
-                  >
-                    <Image
-                      src="/images/accept_pic.png"
-                      alt="RSVP"
-                      width={320}
-                      height={528}
-                      className={`w-80 h-132 sm:w-72 sm:h-72 md:w-60 md:h-60 object-contain${animateRise ? ' animate-rise' : ''}`}
-                      priority
-                    />
-                  </button>
-                </>
+
+                  {/* RSVP button - stacked on mobile, overlapping the hero on md+ */}
+                  <div className="w-full flex justify-center md:relative md:mt-6 lg:mt-8">
+                    <button
+                      type="button"
+                      className="bg-transparent p-0 rounded-full flex items-center justify-center animate-popup mt-0"
+                      style={{ boxShadow: 'none' }}
+                      onClick={() => {
+                        setShowRsvpVideo(true);
+                        setShowKhmerText(false);
+                      }}
+                    >
+                      <Image
+                        src="/images/accept_pic.png"
+                        alt="RSVP"
+                        width={320}
+                        height={528}
+                        className={`w-40 sm:w-48 md:w-60 h-auto object-contain ${animateRise ? ' animate-rise' : ''}`}
+                        priority
+                      />
+                    </button>
+                  </div>
+                </div>
               )}
             </div>
           </div>
